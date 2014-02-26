@@ -1,5 +1,4 @@
 ##Mazacoin /(OSX Mavericks Fork)
-=================================
 
 http://www.MazaCoin.org
 
@@ -9,7 +8,6 @@ Copyright (c) 2013 Zetacoin Developers,
 Copyright (c) 2014 Mazacoin Developers
 
 ##What is MazaCoin?
-----------------
 ````
 MazaCoin is an experimental new digital currency that enables instant payments to
 anyone, anywhere in the world. MazaCoin uses peer-to-peer technology to operate
@@ -22,7 +20,6 @@ the MazaCoin client sofware, see www.MazaCoin.org
 ````
 
 ##*NIX Build Instructions
----------------
 Tested build on Ubuntu 12.X
 Required packages:
 ````
@@ -30,7 +27,6 @@ ntp git build-essential libssl-dev libdb-dev libdb++-dev libboost-all-dev libqre
 ````
 
 ##Build Info
----
 ````
 git clone git clone https://github.com/MazaCoin/MazaCoin.git
 cd MazaCoin/src
@@ -49,12 +45,10 @@ sudo swapon /swapfile
 
 
 ##Note
--------
 ````
 This is a fork of ZetaCoin that works on OSX Mavericks with brew. Use at your own risk.
 ````
 ##License
--------
 ````
 MazaCoin is released under the terms of the MIT license. See `COPYING` for more
 information or see http://opensource.org/licenses/MIT.
