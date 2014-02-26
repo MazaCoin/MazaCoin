@@ -13,7 +13,6 @@ src/test_zetacoin
 
 # Compilation and Qt preprocessor part
 *.qm
-Makefile
 zetacoin-qt
 Zetacoin-Qt.app
 
