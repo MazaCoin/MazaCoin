@@ -25,10 +25,15 @@ Required packages:
 ````
 ntp git build-essential libssl-dev libdb-dev libdb++-dev libboost-all-dev libqrencode-dev libcurl4-openssl-dev automake make
 ````
+Debain 6:
+````
+ntp git build-essential libssl-dev libdb-dev libboost-all-dev libqrencode-dev libcurl4-openssl-dev automake make libdb4.8++-dev 4.8.30-2
+
+````
 
 ##Build Info
 ````
-git clone git clone https://github.com/MazaCoin/MazaCoin.git
+git clone https://github.com/MazaCoin/MazaCoin.git
 cd MazaCoin/src
 make -f makefile.unix USE_UPNP=-
 
@@ -41,6 +46,7 @@ sudo dd if=/dev/zero of=/swapfile bs=64M count=16
 sudo mkswap /swapfile
 sudo swapon /swapfile
 ````
+
 
 
 
