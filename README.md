@@ -23,11 +23,13 @@ the MazaCoin client sofware, see www.MazaCoin.org
 Tested build on Ubuntu 12.X
 Required packages:
 ````
-ntp git build-essential libssl-dev libdb-dev libdb++-dev libboost-all-dev libqrencode-dev libcurl4-openssl-dev automake make
+ntp git build-essential libssl-dev libdb-dev libdb++-dev 
+libboost-all-dev libqrencode-dev libcurl4-openssl-dev automake make
 ````
-Debain 6:
+Debian 6:
 ````
-ntp git build-essential libssl-dev libdb-dev libboost-all-dev libqrencode-dev libcurl4-openssl-dev automake make libdb4.8++-dev 4.8.30-2
+ntp git build-essential libssl-dev libdb-dev libboost-all-dev 
+libqrencode-dev libcurl4-openssl-dev automake make libdb4.8++-dev 4.8.30-2
 
 ````
 
@@ -39,7 +41,8 @@ make -f makefile.unix USE_UPNP=-
 
 Output: mazacoind
 ````
-For smaller RAM systems, you may need to create a swap file for systems to build. This usually happens with under 1GB RAM
+For smaller RAM systems, you may need to create a swap file for systems to build. 
+This usually happens with under 1GB RAM
 UBUNTU:
 ````
 sudo dd if=/dev/zero of=/swapfile bs=64M count=16
