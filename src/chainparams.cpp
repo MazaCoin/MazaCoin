@@ -150,7 +150,7 @@ public:
     }
     virtual Network NetworkID() const { return CChainParams::TESTNET; }
 };
-static CTestNetParams testNetParams;
+//static CTestNetParams testNetParams;
 
 
 //
@@ -195,7 +195,7 @@ public:
     virtual bool RequireRPCPassword() const { return false; }
     virtual Network NetworkID() const { return CChainParams::REGTEST; }
 };
-static CRegTestParams regTestParams;
+//static CRegTestParams regTestParams;
 
 static CChainParams *pCurrentParams = &mainParams;
 
@@ -208,12 +208,12 @@ void SelectParams(CChainParams::Network network) {
         case CChainParams::MAIN:
             pCurrentParams = &mainParams;
             break;
-        case CChainParams::TESTNET:
-            pCurrentParams = &testNetParams;
-            break;
-        case CChainParams::REGTEST:
-            pCurrentParams = &regTestParams;
-            break;
+        //case CChainParams::TESTNET:
+        //    pCurrentParams = &testNetParams;
+        //    break;
+        //case CChainParams::REGTEST:
+        //    pCurrentParams = &regTestParams;
+        //    break;
         default:
             assert(false && "Unimplemented network");
             return;
