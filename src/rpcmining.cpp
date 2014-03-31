@@ -67,18 +67,13 @@ Value getnetworkhashps(const Array& params, bool fHelp)
  if (fHelp || params.size() > 2)
  throw runtime_error(
  "getnetworkhashps [blocks] [height]\n"
-"Returns the estimated network hashes per second based on the last
-120 blocks.\n"
- "Pass in [blocks] to override # of blocks, -1 specifies since last
-difficulty change.\n"
- "Pass in [height] to estimate the network speed at the time when a
-certain block was found.");
+"Returns the estimated network hashes per second based on the last 120 blocks.\n"
+ "Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.\n"
+ "Pass in [height] to estimate the network speed at the time when a certain block was found.");
 
-return GetNetworkHashPS(params.size() > 0 ? params[0].get_int() : 120,
-params.size() > 1 ? params[1].get_int() : -1);
+return GetNetworkHashPS(params.size() > 0 ? params[0].get_int() : 120, params.size() > 1 ? params[1].get_int() : -1);
  }
  Value getgenerate(const Array& params, bool fHelp)
-Value getgenerate(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
