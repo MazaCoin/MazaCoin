@@ -33,7 +33,7 @@ public:
         nDefaultPort = 12835;
         nRPCPort = 12832;
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
-        nSubsidyHalvingInterval = 241920;
+        nSubsidyHalvingInterval = 950000;
 
         // Build the genesis block. Note that the output of the genesis coinbase cannot
         // be spent as it did not originally exist in the database.
@@ -60,10 +60,10 @@ public:
         //    hashGenesisBlock = genesis.GetHash();
         //}
 
-        printf("%s\n", hashGenesisBlock.ToString().c_str());
-        printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
-        printf("%x\n", bnProofOfWorkLimit.GetCompact());
-        genesis.print();
+        //printf("%s\n", hashGenesisBlock.ToString().c_str());
+        //printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
+        //printf("%x\n", bnProofOfWorkLimit.GetCompact());
+        //genesis.print();
 
 
         assert(hashGenesisBlock == uint256("0x00000c7c73d8ce604178dae13f0fc6ec0be3275614366d44b1b4b5c6e238c60c"));
@@ -123,22 +123,22 @@ public:
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nTime = 1390747675;
-        genesis.nNonce = 414708675;
+        genesis.nNonce = 2091390249;
 
 
         //// debug print
         hashGenesisBlock = genesis.GetHash();
-        while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
-            if (++genesis.nNonce==0) break;
-           hashGenesisBlock = genesis.GetHash();
-        }
+       // while (hashGenesisBlock > bnProofOfWorkLimit.getuint256()){
+       //     if (++genesis.nNonce==0) break;
+       //    hashGenesisBlock = genesis.GetHash();
+       // }
 
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         genesis.print();
 
-        //assert(hashGenesisBlock == uint256("0x000007717e2e2df52a9ff29b0771901c9c12f5cbb4914cdf0c8047b459bb21d8"));
-
+        assert(hashGenesisBlock == uint256("0x00000c7c73d8ce604178dae13f0fc6ec0be3275614366d44b1b4b5c6e238c60c"));
+		
         vFixedSeeds.clear();
         vSeeds.clear();
         // vSeeds.push_back(CDNSSeedData("mazacoin.test", "test.mazacoin.org"));
@@ -167,7 +167,7 @@ public:
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 1);
         genesis.nTime = 1390748221;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 3;
+        genesis.nNonce = 4;
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 11444;
         strDataDir = "regtest";
@@ -183,7 +183,7 @@ public:
         printf("%s\n", genesis.hashMerkleRoot.ToString().c_str());
         genesis.print();
 
-        // assert(hashGenesisBlock == uint256("0x13d8d31dde96874006da503dd2b63fa68c698dc823334359e417aa3a92f80433"));
+        assert(hashGenesisBlock == uint256("0x57939ce0a96bf42965fee5956528a456d0edfb879b8bd699bcbb4786d27b979d"));
 
         vSeeds.clear();  // Regtest mode doesn't have any DNS seeds.
 
