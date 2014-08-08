@@ -1,15 +1,20 @@
+// Copyright (c) 2011-2013 The Bitcoin developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef OVERVIEWPAGE_H
 #define OVERVIEWPAGE_H
 
 #include <QWidget>
 
+class ClientModel;
+class TransactionFilterProxy;
+class TxViewDelegate;
+class WalletModel;
+
 namespace Ui {
     class OverviewPage;
 }
-class ClientModel;
-class WalletModel;
-class TxViewDelegate;
-class TransactionFilterProxy;
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -29,7 +34,8 @@ public:
     void showOutOfSyncWarning(bool fShow);
 
 public slots:
-    void setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 immatureBalance);
+    void setBalance(qint64 balance, qint64 unconfirmedBalance, qint64 immatureBalance,
+                    qint64 watchOnlyBalance, qint64 watchUnconfBalance, qint64 watchImmatureBalance);
 
 signals:
     void transactionClicked(const QModelIndex &index);
@@ -41,6 +47,9 @@ private:
     qint64 currentBalance;
     qint64 currentUnconfirmedBalance;
     qint64 currentImmatureBalance;
+    qint64 currentWatchOnlyBalance;
+    qint64 currentWatchUnconfBalance;
+    qint64 currentWatchImmatureBalance;
 
     TxViewDelegate *txdelegate;
     TransactionFilterProxy *filter;

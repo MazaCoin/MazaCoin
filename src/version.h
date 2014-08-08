@@ -5,6 +5,7 @@
 #define BITCOIN_VERSION_H
 
 #include "clientversion.h"
+
 #include <string>
 
 //
@@ -27,9 +28,11 @@ extern const std::string CLIENT_DATE;
 
 static const int PROTOCOL_VERSION = 70002;
 
+// initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
-// earlier versions not supported as of Feb 2012, and are disconnected
-static const int MIN_PEER_PROTO_VERSION = 70001;
+
+// disconnect from peers older than this proto version
+static const int MIN_PEER_PROTO_VERSION = 209;
 
 // nTime field added to CAddress, starting with this version;
 // if possible, avoid requesting addresses nodes older than this
@@ -42,7 +45,7 @@ static const int NOBLKS_VERSION_END = 32400;
 // BIP 0031, pong message, is enabled for all versions AFTER this one
 static const int BIP0031_VERSION = 60000;
 
-// "mempool" command, enhanced "getdata" behavior starts with this version:
+// "mempool" command, enhanced "getdata" behavior starts with this version
 static const int MEMPOOL_GD_VERSION = 60002;
 
 #endif

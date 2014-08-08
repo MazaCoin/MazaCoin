@@ -30,28 +30,28 @@ TESTUTIL = ./util/testutil.o
 TESTHARNESS = ./util/testharness.o $(TESTUTIL)
 
 TESTS = \
-        arena_test \
-        autocompact_test \
-        bloom_test \
-        c_test \
-        cache_test \
-        coding_test \
-        corruption_test \
-        crc32c_test \
-        db_test \
-        dbformat_test \
-        env_test \
-        filename_test \
-        filter_block_test \
-        issue178_test \
-        issue200_test \
-        log_test \
-        memenv_test \
-        skiplist_test \
-        table_test \
-        version_edit_test \
-        version_set_test \
-        write_batch_test
+	arena_test \
+	autocompact_test \
+	bloom_test \
+	c_test \
+	cache_test \
+	coding_test \
+	corruption_test \
+	crc32c_test \
+	db_test \
+	dbformat_test \
+	env_test \
+	filename_test \
+	filter_block_test \
+	issue178_test \
+	issue200_test \
+	log_test \
+	memenv_test \
+	skiplist_test \
+	table_test \
+	version_edit_test \
+	version_set_test \
+	write_batch_test
 
 PROGRAMS = db_bench leveldbutil $(TESTS)
 BENCHMARKS = db_bench_sqlite3 db_bench_tree_db
@@ -72,7 +72,7 @@ SHARED = $(SHARED1)
 else
 # Update db.h if you change these.
 SHARED_MAJOR = 1
-SHARED_MINOR = 15
+SHARED_MINOR = 17
 SHARED1 = libleveldb.$(PLATFORM_SHARED_EXT)
 SHARED2 = $(SHARED1).$(SHARED_MAJOR)
 SHARED3 = $(SHARED1).$(SHARED_MAJOR).$(SHARED_MINOR)
@@ -190,20 +190,21 @@ PLATFORMSROOT=/Applications/Xcode.app/Contents/Developer/Platforms
 SIMULATORROOT=$(PLATFORMSROOT)/iPhoneSimulator.platform/Developer
 DEVICEROOT=$(PLATFORMSROOT)/iPhoneOS.platform/Developer
 IOSVERSION=$(shell defaults read $(PLATFORMSROOT)/iPhoneOS.platform/version CFBundleShortVersionString)
+IOSARCH=-arch armv6 -arch armv7 -arch armv7s -arch arm64
 
 .cc.o:
-        mkdir -p ios-x86/$(dir $@)
-        $(CXX) $(CXXFLAGS) -isysroot $(SIMULATORROOT)/SDKs/iPhoneSimulator$(IOSVERSION).sdk -arch i686 -c $< -o ios-x86/$@
-        mkdir -p ios-arm/$(dir $@)
-        xcrun -sdk iphoneos $(CXX) $(CXXFLAGS) -isysroot $(DEVICEROOT)/SDKs/iPhoneOS$(IOSVERSION).sdk -arch armv6 -arch armv7 -c $< -o ios-arm/$@
-        lipo ios-x86/$@ ios-arm/$@ -create -output $@
+	mkdir -p ios-x86/$(dir $@)
+	$(CXX) $(CXXFLAGS) -isysroot $(SIMULATORROOT)/SDKs/iPhoneSimulator$(IOSVERSION).sdk -arch i686 -arch x86_64 -c $< -o ios-x86/$@
+	mkdir -p ios-arm/$(dir $@)
+	xcrun -sdk iphoneos $(CXX) $(CXXFLAGS) -isysroot $(DEVICEROOT)/SDKs/iPhoneOS$(IOSVERSION).sdk $(IOSARCH) -c $< -o ios-arm/$@
+	lipo ios-x86/$@ ios-arm/$@ -create -output $@
 
 .c.o:
-        mkdir -p ios-x86/$(dir $@)
-        $(CC) $(CFLAGS) -isysroot $(SIMULATORROOT)/SDKs/iPhoneSimulator$(IOSVERSION).sdk -arch i686 -c $< -o ios-x86/$@
-        mkdir -p ios-arm/$(dir $@)
-        xcrun -sdk iphoneos $(CC) $(CFLAGS) -isysroot $(DEVICEROOT)/SDKs/iPhoneOS$(IOSVERSION).sdk -arch armv6 -arch armv7 -c $< -o ios-arm/$@
-        lipo ios-x86/$@ ios-arm/$@ -create -output $@
+	mkdir -p ios-x86/$(dir $@)
+	$(CC) $(CFLAGS) -isysroot $(SIMULATORROOT)/SDKs/iPhoneSimulator$(IOSVERSION).sdk -arch i686 -arch x86_64 -c $< -o ios-x86/$@
+	mkdir -p ios-arm/$(dir $@)
+	xcrun -sdk iphoneos $(CC) $(CFLAGS) -isysroot $(DEVICEROOT)/SDKs/iPhoneOS$(IOSVERSION).sdk $(IOSARCH) -c $< -o ios-arm/$@
+	lipo ios-x86/$@ ios-arm/$@ -create -output $@
 
 else
 .cc.o:
