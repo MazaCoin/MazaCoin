@@ -1,20 +1,27 @@
+// Copyright (c) 2012-2013 The Bitcoin Core developers
+// Distributed under the MIT/X11 software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 //
 // Unit tests for canonical signatures
+//
 
-#include "json/json_spirit_writer_template.h"
-#include <boost/test/unit_test.hpp>
-#include <openssl/ecdsa.h>
-
-#include "key.h"
+#include "data/sig_noncanonical.json.h"
+#include "data/sig_canonical.json.h"
+#include "random.h"
 #include "script.h"
 #include "util.h"
+
+#include <boost/foreach.hpp>
+#include <boost/test/unit_test.hpp>
+#include "json/json_spirit_writer_template.h"
+#include <openssl/ecdsa.h>
 
 using namespace std;
 using namespace json_spirit;
 
-
 // In script_tests.cpp
-extern Array read_json(const std::string& filename);
+extern Array read_json(const std::string& jsondata);
 
 BOOST_AUTO_TEST_SUITE(canonical_tests)
 
@@ -58,13 +65,13 @@ bool static IsCanonicalSignature_OpenSSL(const std::vector<unsigned char> &vchSi
 
 BOOST_AUTO_TEST_CASE(script_canon)
 {
-    Array tests = read_json("sig_canonical.json");
+    Array tests = read_json(std::string(json_tests::sig_canonical, json_tests::sig_canonical + sizeof(json_tests::sig_canonical)));
 
     BOOST_FOREACH(Value &tv, tests) {
         string test = tv.get_str();
         if (IsHex(test)) {
             std::vector<unsigned char> sig = ParseHex(test);
-            BOOST_CHECK_MESSAGE(IsCanonicalSignature(sig), test);
+            BOOST_CHECK_MESSAGE(IsCanonicalSignature(sig, SCRIPT_VERIFY_STRICTENC), test);
             BOOST_CHECK_MESSAGE(IsCanonicalSignature_OpenSSL(sig), test);
         }
     }
@@ -72,15 +79,32 @@ BOOST_AUTO_TEST_CASE(script_canon)
 
 BOOST_AUTO_TEST_CASE(script_noncanon)
 {
-    Array tests = read_json("sig_noncanonical.json");
+    Array tests = read_json(std::string(json_tests::sig_noncanonical, json_tests::sig_noncanonical + sizeof(json_tests::sig_noncanonical)));
 
     BOOST_FOREACH(Value &tv, tests) {
         string test = tv.get_str();
         if (IsHex(test)) {
             std::vector<unsigned char> sig = ParseHex(test);
-            BOOST_CHECK_MESSAGE(!IsCanonicalSignature(sig), test);
+            BOOST_CHECK_MESSAGE(!IsCanonicalSignature(sig, SCRIPT_VERIFY_STRICTENC), test);
             BOOST_CHECK_MESSAGE(!IsCanonicalSignature_OpenSSL(sig), test);
         }
+    }
+}
+
+BOOST_AUTO_TEST_CASE(script_signstrict)
+{
+    for (int i=0; i<100; i++) {
+        CKey key;
+        key.MakeNewKey(i & 1);
+        std::vector<unsigned char> sig;
+        uint256 hash = GetRandHash();
+
+        BOOST_CHECK(key.Sign(hash, sig)); // Generate a random signature.
+        BOOST_CHECK(key.GetPubKey().Verify(hash, sig)); // Check it.
+        sig.push_back(0x01); // Append a sighash type.
+
+        BOOST_CHECK(IsCanonicalSignature(sig, SCRIPT_VERIFY_STRICTENC | SCRIPT_VERIFY_LOW_S));
+        BOOST_CHECK(IsCanonicalSignature_OpenSSL(sig));
     }
 }
 
