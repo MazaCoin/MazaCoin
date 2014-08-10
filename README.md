@@ -4,15 +4,16 @@ Mazacoin integration/staging tree
 http://www.Mazacoin.org
 
 Copyright (c) 2009-2014 Bitcoin Core Developers
+
 Copyright (c) 2013 Zetacoin Developers
+
 Copyright (c) 2013-2014 Mazacoin Developers
 
 What is Mazacoin?
 ----------------
 
 Mazacoin is an experimental new digital currency based on Bitcoin (https://www.bitcoin.org) 
-that enables instant payments to
-anyone, anywhere in the world. Mazacoin uses peer-to-peer technology to operate
+that enables instant payments to anyone, anywhere in the world. Mazacoin uses peer-to-peer technology to operate
 with no central authority: managing transactions and issuing money are carried
 out collectively by the network. 
 
