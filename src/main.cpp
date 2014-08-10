@@ -1059,7 +1059,7 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
     if (!IsCoinBase())
         return 0;
-    return max(0, (COINBASE_MATURITY+1) - GetDepthInMainChain());
+    return max(0, (COINBASE_MATURITY+20) - GetDepthInMainChain());
 }
 
 
@@ -1247,7 +1247,7 @@ int64_t GetBlockValue(int nHeight, int64_t nFees)
 
     if (nHeight >= 100000)
 		{
-			nSubsidy = nStartSubsidy / 5;
+			nSubsidy = nSubsidy / 5;
 		}
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     nSubsidy >>= halvings;

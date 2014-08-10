@@ -1147,7 +1147,7 @@ void ThreadMapPort()
             }
         }
 
-        string strDesc = "Bitcoin " + FormatFullVersion();
+        string strDesc = "Mazacoin " + FormatFullVersion();
 
         try {
             while (true) {
