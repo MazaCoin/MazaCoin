@@ -151,9 +151,13 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 	
 
         int DiffMode = 1;
-        
+        if (Params().AllowMinDifficultyBlocks())
+        {
+        	if (pindexLast->nHeight+1 >= 10) { DiffMode = 2; }	
+        }	
+        else {
                 if (pindexLast->nHeight+1 >= 100000) { DiffMode = 2; }
-        
+        }
         
         if (DiffMode == 1) { return GetNextWorkRequired_V1(pindexLast, pblock); }
         else if (DiffMode == 2) { return DarkGravityWave3(pindexLast, pblock); }
